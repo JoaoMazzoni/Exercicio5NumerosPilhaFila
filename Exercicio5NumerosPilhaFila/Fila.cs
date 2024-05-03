@@ -1,47 +1,62 @@
-﻿
-
-namespace Exercicio5NumerosPilhaFila
+﻿internal class Fila
 {
-    internal class Fila
+    private Numero headNumero;
+    private Numero tailNumero;
+
+    public Fila()
     {
-        Numero headNumero;
-        Numero tailNumero;
+        this.headNumero = null;
+        this.tailNumero = null;
+        Console.WriteLine("\nFila Criada!");
+    }
+    public bool Empty()
+    {
+        return headNumero == null;
+    }
 
-        public Fila()
+    public void push(Numero auxNumero)
+    {
+        if (headNumero == null)
         {
-            this.headNumero = null;
-            this.tailNumero = null;
-            Console.WriteLine("\nFila Criada!");
+            headNumero = auxNumero;
+            tailNumero = auxNumero;
         }
+        else
+        {
+            tailNumero.setNext(auxNumero);
+            tailNumero = auxNumero;
+        }
+    }
 
-        public void push(Numero auxNumero)
+    public Numero pop()
+    {
+        if (Empty())
         {
-            if (Empty())
-            {
-                headNumero = auxNumero;
-                tailNumero = auxNumero;
-            }
-            else
-            {
-                tailNumero.setNext(auxNumero);
-                tailNumero = auxNumero;
-            }
-            
+            Console.WriteLine("Fila Vazia! Impossível Remover.");
+            Console.Write("Pressione qualquer tecla para continuar:");
+            Console.ReadKey();
+            return null;
         }
-        bool Empty()
+        else
         {
-            return headNumero == null;
-        }
-        public void imprimirFila()
-        {
-            Console.WriteLine("\nValores na fila:");
-            Numero numeroAtual = headNumero;
-            while (numeroAtual != null)
+            Numero numeroRemovido = headNumero;
+            headNumero = headNumero.getNext();
+            if (headNumero == null)
             {
-                Console.WriteLine(numeroAtual.getValor());
-                numeroAtual = numeroAtual.getNext();
+                tailNumero = null;
             }
+            return numeroRemovido;
         }
+    }
 
+    public void imprimirFila()
+    {
+        Console.WriteLine("\n\nValores na fila:");
+        Numero numeroAtual = headNumero;
+        while (numeroAtual != null)
+        {
+            Console.Write(numeroAtual.getValor() + " ");
+            numeroAtual = numeroAtual.getNext();
+        }
     }
 }

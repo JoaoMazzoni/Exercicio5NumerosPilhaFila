@@ -1,38 +1,44 @@
-﻿
-namespace Exercicio5NumerosPilhaFila
+﻿namespace Exercicio5NumerosPilhaFila
 {
     internal class Pilha
     {
-        Numero headNumero;
+        private Numero headNumero;
 
         public Pilha()
         {
             this.headNumero = null;
-            Console.WriteLine("\nPilha criada!");
+            Console.WriteLine("\n\nPilha criada!");
         }
 
-        bool Empty()
+        public void push(Numero auxNumero)
+        {
+            auxNumero.setAnterior(headNumero);
+            headNumero = auxNumero;
+        }
+
+        public bool Empty()
         {
             return headNumero == null;
         }
-
-        public void push (Numero auxNumero)
+        public Numero pop()
         {
-            if (Empty() == true)
+            if (Empty())
             {
-                headNumero = auxNumero;
+                Console.WriteLine("Pilha Vazia! Impossível Remover.");
+                Console.Write("Pressione qualquer tecla para continuar:");
+                Console.ReadKey();
+                return null; 
             }
             else
             {
-                auxNumero.setAnterior(headNumero);
-                headNumero = auxNumero;
+                Numero numeroRemovido = headNumero;
+                headNumero = headNumero.getAnterior();
+                return numeroRemovido;
             }
-        
         }
-
         public void imprimirPilha()
         {
-            Console.WriteLine("\nValores na pilha:");
+            Console.WriteLine("\n\nValores na pilha:");
             Numero numeroAtual = headNumero;
             while (numeroAtual != null)
             {
@@ -40,11 +46,6 @@ namespace Exercicio5NumerosPilhaFila
                 numeroAtual = numeroAtual.getAnterior();
             }
         }
-    
-    
-    
-    
-    
     }
-}
 
+}
